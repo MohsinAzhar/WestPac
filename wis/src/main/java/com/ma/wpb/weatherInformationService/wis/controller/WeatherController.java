@@ -1,9 +1,9 @@
 package com.ma.wpb.weatherInformationService.wis.controller;
 
-import com.ma.wpb.weatherInformationService.wis.dao.WeatherRepository;
 import com.ma.wpb.weatherInformationService.wis.dto.WeatherByCityRequest;
 import com.ma.wpb.weatherInformationService.wis.dto.WeathersByDateRequest;
 import com.ma.wpb.weatherInformationService.wis.model.Weather;
+import com.ma.wpb.weatherInformationService.wis.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,37 +17,37 @@ import java.util.List;
 public class WeatherController {
 
     @Autowired
-    WeatherRepository weatherRepository;
+    WeatherService weatherService;
 
     @PostMapping("addWeatherInfo")
     public boolean addWeather(@RequestBody Weather weatherInfo)
     {
-        weatherRepository.save(weatherInfo);
+        weatherService.save(weatherInfo);
         return true;
     }
 
     @PostMapping("addAllWeatherInfo")
     public boolean addWeathers(@RequestBody ArrayList<Weather> listWeather)
     {
-        weatherRepository.saveAll(listWeather);
+        weatherService.saveAll(listWeather);
         return true;
     }
 
     @GetMapping("getAllWeatherInfo")
     public List<Weather> getAllWeathers()
     {
-        return weatherRepository.findAll();
+        return weatherService.findAll();
     }
 
     @PostMapping("getWeatherByCity")
     public List<Weather> getWeatherByCity(@RequestBody WeatherByCityRequest weatherByCityInfo)
     {
-        return weatherRepository.findByCity(weatherByCityInfo.getCity());
+        return weatherService.findByCity(weatherByCityInfo.getCity());
     }
     @PostMapping("getAllWeathersByDate")
     public List<Weather> getAllWeathersByDate(@RequestBody WeathersByDateRequest weatherByDateInfo)
     {
-        return weatherRepository.findByDate(weatherByDateInfo.getDate());
+        return weatherService.findByDate(weatherByDateInfo.getDate());
     }
 
 
