@@ -22,36 +22,46 @@ public class WeatherService {
 
     public boolean save(Weather weatherInfo)
     {
-        objWeatherRepository.save(weatherInfo);
+        try {
+            objWeatherRepository.save(weatherInfo);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
     public boolean saveAll(ArrayList<Weather> listWeather)
     {
+        try{
         objWeatherRepository.saveAll(listWeather);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
     public List<Weather> findAll()
     {
-        return objWeatherRepository.findAll();
+        ArrayList<Weather> arrWeathers = new ArrayList<>();
+        try
+        {
+            arrWeathers = (ArrayList<Weather>) objWeatherRepository.findAll();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+        return arrWeathers;
     }
 
     public List<Weather> findByCity(String city, char desiredUnit)
     {
-
+        try {
         return objWeatherRepository.findByCity(city).stream()
-            .map(weather -> Weather.builder()
-                    .city(weather.getCity())
-                    .temp(tempratureConversion(weather.getTemp(),weather.getUnit(),desiredUnit))
-                    .unit(desiredUnit)
-                    .date(weather.getDate())
-                    .weather(weather.getWeather())
-                    .build()).collect(Collectors.toList());
-
-    }
-    public List<Weather> findByDate(Date date , char desiredUnit)
-    {
-        return objWeatherRepository.findByDate(date).stream()
                 .map(weather -> Weather.builder()
                         .city(weather.getCity())
                         .temp(tempratureConversion(weather.getTemp(),weather.getUnit(),desiredUnit))
@@ -59,6 +69,35 @@ public class WeatherService {
                         .date(weather.getDate())
                         .weather(weather.getWeather())
                         .build()).collect(Collectors.toList());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+
+        return null;
+
+    }
+    public List<Weather> findByDate(Date date , char desiredUnit)
+    {
+        try {
+
+            return objWeatherRepository.findByDate(date).stream()
+                    .map(weather -> Weather.builder()
+                            .city(weather.getCity())
+                            .temp(tempratureConversion(weather.getTemp(),weather.getUnit(),desiredUnit))
+                            .unit(desiredUnit)
+                            .date(weather.getDate())
+                            .weather(weather.getWeather())
+                            .build()).collect(Collectors.toList());
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+        return null;
     }
 
     public double tempratureConversion(double temp, char unit, char desitredUnit)
