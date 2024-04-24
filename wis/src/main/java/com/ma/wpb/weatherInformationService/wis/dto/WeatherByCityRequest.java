@@ -15,4 +15,5 @@ public class WeatherByCityRequest {
 
     @Id
     private String city;
+    private char unit;
 }

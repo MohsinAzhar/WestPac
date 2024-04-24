@@ -42,12 +42,12 @@ public class WeatherController {
     @PostMapping("getWeatherByCity")
     public List<Weather> getWeatherByCity(@RequestBody WeatherByCityRequest weatherByCityInfo)
     {
-        return weatherService.findByCity(weatherByCityInfo.getCity());
+        return weatherService.findByCity(weatherByCityInfo.getCity(),weatherByCityInfo.getUnit());
     }
     @PostMapping("getAllWeathersByDate")
     public List<Weather> getAllWeathersByDate(@RequestBody WeathersByDateRequest weatherByDateInfo)
     {
-        return weatherService.findByDate(weatherByDateInfo.getDate());
+        return weatherService.findByDate(weatherByDateInfo.getDate(), weatherByDateInfo.getUnit());
     }
 
 

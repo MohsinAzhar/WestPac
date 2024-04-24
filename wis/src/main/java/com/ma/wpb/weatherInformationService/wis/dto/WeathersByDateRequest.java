@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class WeathersByDateRequest {
 
-    Date date;
+    private Date date;
+    private char unit;
 
 }
