@@ -1,6 +1,8 @@
 package com.ma.wpb.weatherInformationService.wis.controller;
 
 import com.ma.wpb.weatherInformationService.wis.dao.WeatherRepository;
+import com.ma.wpb.weatherInformationService.wis.dto.WeatherByCityRequest;
+import com.ma.wpb.weatherInformationService.wis.dto.WeathersByDateRequest;
 import com.ma.wpb.weatherInformationService.wis.model.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,10 +39,16 @@ public class WeatherController {
         return weatherRepository.findAll();
     }
 
-    /*public List<Weather> getWeatherByCity(@RequestBody Weather weatherInfo)
+    @PostMapping("getWeatherByCity")
+    public List<Weather> getWeatherByCity(@RequestBody WeatherByCityRequest weatherByCityInfo)
     {
-        return weatherRepository.findBycity(weatherInfo.getCity());
-    }*/
+        return weatherRepository.findByCity(weatherByCityInfo.getCity());
+    }
+    @PostMapping("getAllWeathersByDate")
+    public List<Weather> getAllWeathersByDate(@RequestBody WeathersByDateRequest weatherByDateInfo)
+    {
+        return weatherRepository.findByDate(weatherByDateInfo.getDate());
+    }
 
 
 }
